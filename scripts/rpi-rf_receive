@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#sudo pip3 install rpi-rf
 
 import argparse
 import signal
@@ -31,8 +32,9 @@ logging.info("Listening for codes on GPIO " + str(args.gpio))
 while True:
     if rfdevice.rx_code_timestamp != timestamp:
         timestamp = rfdevice.rx_code_timestamp
-        logging.info(str(rfdevice.rx_code) +
+        logging.info(hex(rfdevice.rx_code) +
                      " [pulselength " + str(rfdevice.rx_pulselength) +
+                     ", BitLength " + str(rfdevice.rx_bitlength) +
                      ", protocol " + str(rfdevice.rx_proto) + "]")
     time.sleep(0.01)
 rfdevice.cleanup()
