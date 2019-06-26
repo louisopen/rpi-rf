@@ -35,6 +35,7 @@ while True:
         logging.info(hex(rfdevice.rx_code) +
                      " [pulselength " + str(rfdevice.rx_pulselength) +
                      ", BitLength " + str(rfdevice.rx_bitlength) +
+                     
                      ", protocol " + str(rfdevice.rx_proto) + "]")
     time.sleep(0.01)
 rfdevice.cleanup()
