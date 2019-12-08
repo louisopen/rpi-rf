@@ -1,0 +1,32 @@
+How to setting don't entry screen saving mode in Desktop ?
+1. update/edit the /etc/lightdm/lightdm.conf 
+...
+[SeatDefaults]
+...
+#xserver-command=X	#Change to as below
+xserver-command=X -s 0 –dpms
+...
+
+How to create a command line windows to run in the Desktop of Raspbian?
+2. update/edit the /etc/xdg/lxsession/LXDE-pi/autostart 
+...
+Exec = lxterminal -e /home/pi/autorun.sh
+...
+
+3. update/edit the /home/pi/.config/autostart/autoboot.desktop 
+[Desktop Entry]
+Type=Application
+Name=MyApplicationRun
+Exec = lxterminal -e /home/pi/autorun.sh
+Icon=pictur.png
+...
+or
+
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=myprogram
+Exec=lxterminal -e bash -c '/home/pi/autorun.sh;$SHELL'
+Terminal=true
+...
+#The $SHELL makes the terminal stay open after myprogram ends its execution. 
