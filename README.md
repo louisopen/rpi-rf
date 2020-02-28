@@ -55,8 +55,8 @@ sudo python $jump_dir/status_spi.py &           #IP display
 sudo python3 $jump_dir/rpi_rf/rpi-rf_receive    #本程序main python
 
 
-5. Change receive code of the display on terminal dispaly.
-我們做了一些應用上的改變接收代碼及顯示(rf發送端已經定義了溫度單位及意義)
+#### 5. Change receive code of the display on terminal dispaly.
+#### 我們做了一些應用上的改變接收代碼及顯示(rf發送端已經定義了溫度單位及意義)
 
 ...
         if((rfdevice.rx_code&0xfffe0000) == 0x33340000):    #ID ok
