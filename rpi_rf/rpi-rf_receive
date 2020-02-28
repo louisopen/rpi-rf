@@ -32,9 +32,24 @@ logging.info("Listening for codes on GPIO " + str(args.gpio))
 while True:
     if rfdevice.rx_code_timestamp != timestamp:
         timestamp = rfdevice.rx_code_timestamp
+        
         logging.info(hex(rfdevice.rx_code) +
                      " [pulselength " + str(rfdevice.rx_pulselength) +
                      ", BitLength " + str(rfdevice.rx_bitlength) +
                      ", protocol " + str(rfdevice.rx_proto) + "]")
+        
+        if((rfdevice.rx_code&0xfffe0000) == 0x33340000):    #ID ok
+            if((rfdevice.rx_code&0x00010000) > 0):  #sign "-"
+                temp=0.0-(rfdevice.rx_code&0x0000ffff)/10
+            else:
+                temp=(rfdevice.rx_code&0x0000ffff)/10
+                
+            logging.info(str(temp))
+            '''
+            logging.info(str(temp) +
+                        " [pulselength " + str(rfdevice.rx_pulselength) +
+                        ", BitLength " + str(rfdevice.rx_bitlength) +
+                        ", protocol " + str(rfdevice.rx_proto) + "]")
+            '''
     time.sleep(0.01)
 rfdevice.cleanup()
