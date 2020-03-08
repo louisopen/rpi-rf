@@ -38,7 +38,7 @@ while True:
                      ", BitLength " + str(rfdevice.rx_bitlength) +
                      ", protocol " + str(rfdevice.rx_proto) + "]")
         
-        temp = rfdevice.rx_code&0xfff60000  #used 2bit for group
+        temp = rfdevice.rx_code&0xfff60000          #used 2bit for group
         if(temp==0x33300000) or (temp==0x33320000) or (temp==0x33340000) or (temp==0x33360000): #ID 4 sets for same application
             if((rfdevice.rx_code&0x00010000) > 0):  #sign "-"
                 temp=0.0-(rfdevice.rx_code&0x0000ffff)/10
@@ -46,6 +46,8 @@ while True:
                 temp=(rfdevice.rx_code&0x0000ffff)/10
                 
             logging.info(str(temp))
+
+
             '''
             logging.info(str(temp) +
                         " [pulselength " + str(rfdevice.rx_pulselength) +
