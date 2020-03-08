@@ -52,5 +52,6 @@ while True:
                         ", BitLength " + str(rfdevice.rx_bitlength) +
                         ", protocol " + str(rfdevice.rx_proto) + "]")
             '''
+            
     time.sleep(0.01)
 rfdevice.cleanup()
