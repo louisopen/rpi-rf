@@ -8,7 +8,7 @@ import time
 import logging
 
 from rpi_rf import RFDevice
-from my_mqttClass import *  #Connect to your cloud if you have
+from my_mqttClass import *      #Connect to your cloud if you have (second version)
 
 rfdevice = None
 
@@ -31,9 +31,7 @@ rfdevice.enable_rx()
 timestamp = None
 logging.info("Listening for codes on GPIO " + str(args.gpio))
 
-on_mqtt_connect()       #Connect to your cloud if you have
-count=0                 #Send delay count for cloud
-
+count=0                 #Delay count for Send to cloud
 while True:
     if rfdevice.rx_code_timestamp != timestamp:
         timestamp = rfdevice.rx_code_timestamp
@@ -58,28 +56,38 @@ while True:
                 else:
                     temp=(rfdevice.rx_code&0x0000ffff)/10          
                 logging.info("DS18B02 Temperature is " + str(temp))
-                my_sensor_temp("Temp",temp)             #send to cloud if you have the item
+
+                Fish=Fish_device()                      #Connect to your cloud if you have
+                Fish.publish("Temp",temp)
+                #message=Fish.subscribe("temp")         #訂閱
 
             elif(temp==0x33380000) or (temp==0x333a0000) or (temp==0x333c0000) or (temp==0x333e0000): #DHT22 applications
                 if((rfdevice.rx_code&0x00010000) > 0):  #sign "-" for DHT22 temperature / Humidity
                     temp=0.0-((rfdevice.rx_code&0x0000ff80) >> 7)/10
                 else:
                     temp=((rfdevice.rx_code&0x0000ff80) >> 7)/10
+                
+                Office=Office_device()                  #Connect to your cloud if you have
                 logging.info("Temperature is " + str(temp)) 
-                my_sensor_temp("Temperature",temp)      #send to cloud if you have the item
+                Office.publish("Temperature",temp)      #send to cloud if you have the item
+                #message=Office.subscribe("Temperature") #訂閱
 
                 temp=rfdevice.rx_code&0x0000007f
                 logging.info("Humidity is " + str(temp) + "%RH")
-                my_sensor_temp("Humidity",temp)         #send to cloud if you have the item
+                Office.publish("Humidity",temp)         #send to cloud if you have the item
+                #message=Office.subscribe("Humidity")   #訂閱
 
             elif(temp==0x33200000) or (temp==0x33220000) or (temp==0x33240000) or (temp==0x33280000): #ADC input applications
                 temp=(rfdevice.rx_code&0x0001ff00) >> 8 #Arduino A6 input (got 9bit)
                 logging.info("A6 (9bit) is "+ str(temp))   
-                #my_sensor_temp("ADCvalue6",temp)       #send to cloud if you have the item
+                Fish=Fish_device()                      #Connect to your cloud if you have
+                Fish.publish("abc",temp)                #氬硝酸
+                #message=Fish.subscribe("temp")         #訂閱
 
                 temp=rfdevice.rx_code&0x000000ff        #Arduino A7 input (got 8bit)
                 logging.info("A7 (8bit) is "+ str(temp))   
-                my_sensor_temp("ADCvalue7",temp)        #send to cloud if you have the item
+                Fish.publish("bc",temp)                 #氨氮
+                #message=Fish.subscribe("temp")         #訂閱
 
             else:
                 pass
