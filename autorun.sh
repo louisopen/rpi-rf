@@ -23,5 +23,6 @@ sudo python $jump_dir/status_spi.py &
 #sudo python3 $jump_dir/rpi_rf/rpi-rf_receive
 sudo python3 $jump_dir/rpi_rf/rpi-rf_receive_cloud.py
 
+
 cd $source_dir
 exit 0
