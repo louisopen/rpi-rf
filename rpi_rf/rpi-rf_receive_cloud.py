@@ -14,6 +14,7 @@ rfdevice = None
 
 # pylint: disable=unused-argument
 def exithandler(signal, frame):
+    logging.info('You are break here!')
     rfdevice.cleanup()
     sys.exit(0)
 
@@ -31,6 +32,7 @@ rfdevice.enable_rx()
 timestamp = None
 logging.info("Listening for codes on GPIO " + str(args.gpio))
 
+time_out=0
 water=[]        #空列表for Send to cloud
 area_temp=[]    #空列表for Send to cloud
 area_hum=[]     #空列表for Send to cloud
@@ -119,5 +121,10 @@ while True:
                 device_adc7=[]    #空列表
                 Fish.publish("bc",temp)                 #氨氮
                 #message=Fish.subscribe("temp")         #訂閱
+    else:
+        time_out+=1
+        if time_out>60000:
+            time_out=0
+            logging.info('You pressed once time_out(10 minutes)')
     time.sleep(0.01)
 rfdevice.cleanup()
