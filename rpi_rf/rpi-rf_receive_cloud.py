@@ -68,7 +68,7 @@ while True:
                 water=[]    #空列表
                 Fish=Fish_device()                      #Connect to your cloud if you have
                 Fish.publish("Temp",temp)
-                #message=Fish.subscribe("temp")         #訂閱
+                message=Fish.subscribe("Temp")         #訂閱
 
         elif(temp==0x33380000) or (temp==0x333a0000) or (temp==0x333c0000) or (temp==0x333e0000): #DHT22 applications
             if((rfdevice.rx_code&0x00010000) > 0):  #sign "-" for DHT22 temperature / Humidity
@@ -85,7 +85,7 @@ while True:
                 area_temp=[]    #空列表
                 Office=Office_device()                  #Connect to your cloud if you have
                 Office.publish("Temperature",temp)      #send to cloud if you have the item
-                #message=Office.subscribe("Temperature") #訂閱
+                message=Office.subscribe("Temperature") #訂閱
 
             temp=rfdevice.rx_code&0x0000007f
             logging.info("Humidity is " + str(temp) + "%RH")
@@ -96,7 +96,7 @@ while True:
                 temp=(area_hum[15]+area_hum[16])/2
                 area_hum=[]    #空列表
                 Office.publish("Humidity",temp)         #send to cloud if you have the item
-                #message=Office.subscribe("Humidity")   #訂閱
+                message=Office.subscribe("Humidity")   #訂閱
 
         elif(temp==0x33200000) or (temp==0x33220000) or (temp==0x33240000) or (temp==0x33280000): #ADC input applications
             temp=(rfdevice.rx_code&0x0001ff00) >> 8 #Arduino A6 input (got 9bit)
@@ -109,7 +109,7 @@ while True:
                 device_adc6=[]    #空列表
                 Fish=Fish_device()                      #Connect to your cloud if you have
                 Fish.publish("abc",temp)                #氬硝酸
-                #message=Fish.subscribe("temp")         #訂閱
+                message=Fish.subscribe("abc")          #訂閱
 
             temp=rfdevice.rx_code&0x000000ff        #Arduino A7 input (got 8bit)
             logging.info("A7 (8bit) is "+ str(temp))
@@ -120,7 +120,7 @@ while True:
                 temp=(device_adc7[15]+device_adc7[16])/2
                 device_adc7=[]    #空列表
                 Fish.publish("bc",temp)                 #氨氮
-                #message=Fish.subscribe("temp")         #訂閱
+                message=Fish.subscribe("bc")           #訂閱
     else:
         time_out+=1
         if time_out>60000:
