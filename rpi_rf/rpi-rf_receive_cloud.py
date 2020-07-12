@@ -10,7 +10,7 @@ import logging
 from rpi_rf import RFDevice
 from my_mqttClass import *      #Connect to your cloud if you have (second version)
 
-pathname = os.path.join(os.getcwd(),'debuglog.log') 
+pathname = os.path.join(os.getcwd(),'rf_debug.log') 
 def logwrite(data):
     with open(pathname, 'a') as logstring:
         logstring.write(data)
