@@ -15,7 +15,7 @@ xserver-command=X -s 0 –dpms
 
 
 #### 2. How to create a command line mode to run rpi-rf_receive in the mode? 
-#### 開機即開啟終端機模式, 並運行rpi-rf_receove, 這樣開機後可以直接準備就緒
+#### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receove, 這樣開機後可以直接準備就緒
 
 update/edit the /etc/xdg/lxsession/LXDE-pi/autostart 
 
@@ -32,7 +32,7 @@ pdate/edit the /home/pi/.config/autostart/autoboot.desktop
 [Desktop Entry]
 Type=Application
 Name=MyApplicationRun
-Exec = lxterminal -e /home/pi/autorun.sh
+Exec = lxterminal -e /home/pi/autorun.sh                    #lxterminal run autorun.sh
 Icon=pictur.png
 ...
 or
@@ -41,7 +41,7 @@ or
 Encoding=UTF-8
 Type=Application
 Name=myprogram
-Exec=lxterminal -e bash -c '/home/pi/autorun.sh;$SHELL'
+Exec=lxterminal -e bash -c '/home/pi/autorun.sh;$SHELL'     #bash run autorun.sh
 Terminal=true
 ...
 

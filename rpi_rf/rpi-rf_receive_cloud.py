@@ -3,23 +3,29 @@
 
 import argparse
 import signal
-import sys
+import sys,os
 import time
 import logging
 
 from rpi_rf import RFDevice
 from my_mqttClass import *      #Connect to your cloud if you have (second version)
 
+pathname = os.path.join(os.getcwd(),'debuglog.log') 
+def logwrite(data):
+    with open(pathname, 'a') as logstring:
+        logstring.write(data)
+
 rfdevice = None
 
 # pylint: disable=unused-argument
 def exithandler(signal, frame):
-    logging.info('You are break here!')
+    logwrite('============>You are break here!')
     rfdevice.cleanup()
     sys.exit(0)
 
 logging.basicConfig(level=logging.INFO, datefmt='%Y-%m-%d %H:%M:%S',
                     format='%(asctime)-15s - [%(levelname)s] %(module)s: %(message)s', )
+#logger = logging.getLogger('test')
 
 parser = argparse.ArgumentParser(description='Receives a decimal code via a 433/315MHz GPIO device')
 parser.add_argument('-g', dest='gpio', type=int, default=27,
@@ -127,4 +133,5 @@ while True:
             time_out=0
             logging.info('You pressed once time_out(10 minutes)')
     time.sleep(0.01)
+logwrite('============>You are break loop!')
 rfdevice.cleanup()
