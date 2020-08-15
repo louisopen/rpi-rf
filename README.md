@@ -5,7 +5,7 @@
 #### 因為Raspbian開機內定義有螢幕休眠, 所以我們需要rpi-rf_receive應用上取消休眠
 
 sudo nano /etc/lightdm/lightdm.conf 
-...
+
 ...
 [SeatDefaults]
 ...
@@ -18,7 +18,7 @@ xserver-command=X -s 0 –dpms
 #### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receive (改用另一個)
 
 sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
-...
+
 ...
 #Exec = lxterminal -e /home/pi/autorun.sh                    
 Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
@@ -29,7 +29,7 @@ Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"
 #### 用戶自動登入時才運行程序的設置
 
 sudo nano /home/pi/.config/autostart/autoboot.desktop 
-...
+
 ...
 [Desktop Entry]
 Type=Application
@@ -53,7 +53,7 @@ Terminal=true
 
 #### 4. autorun.sh 
 #### 運行程序的內容
-...
+
 ...
 sudo python $jump_dir/status_spi.py &           #IP status display
 sudo python3 $jump_dir/rpi_rf/rpi-rf_receive    #本程序main python
@@ -62,7 +62,7 @@ sudo python3 $jump_dir/rpi_rf/rpi-rf_receive    #本程序main python
 #### 5. Change receive code of the display on terminal dispaly.
 #### 做了一些應用上的改變,改變接收代碼及顯示
 ##### 433MHz rf發送端已經定義的應用有DS18B02(temperature),DHT22(Temperature/Humidity),Arduino ADC
-...
+
 ...
         count+=1
         if count==30:
