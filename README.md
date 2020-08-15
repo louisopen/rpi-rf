@@ -17,18 +17,18 @@ xserver-command=X -s 0 –dpms
 #### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receive (改用另一個)
 
 sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
-'
+* * * 
 ...
 #Exec = lxterminal -e /home/pi/autorun.sh                    
 Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
 ...
-'
+* * * 
 
 #### 3. Auto run application after log-in.
 #### 用戶自動登入時才運行程序的設置
 
 sudo nano /home/pi/.config/autostart/autoboot.desktop 
-
+* * * 
 ...
 [Desktop Entry]
 Type=Application
@@ -46,7 +46,7 @@ Name=myprogram
 Exec=lxterminal -e bash -c '/home/pi/autorun.sh;$SHELL'     #bash run autorun.sh
 Terminal=true
 ...
-
+* * *
 #The $SHELL makes the terminal stay open after myprogram ends its execution.
 
 
