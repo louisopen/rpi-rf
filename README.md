@@ -6,11 +6,11 @@
 
 sudo nano /etc/lightdm/lightdm.conf 
 * * *
->[SeatDefaults]
->...
->#xserver-command=X	#Change to as below
->xserver-command=X -s 0 –dpms
->...
+> [SeatDefaults]
+> ...
+> #xserver-command=X	    #Change to as below
+> xserver-command=X -s 0 –dpms
+> ...
 * * *
 
 #### 2. How to create a command line mode to run rpi-rf_receive in the X-windows mode? 
@@ -18,10 +18,10 @@ sudo nano /etc/lightdm/lightdm.conf
 
 sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
 * * * 
->...
->#Exec = lxterminal -e /home/pi/autorun.sh    
->Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
->...
+> ...
+> #Exec = lxterminal -e /home/pi/autorun.sh    
+> Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
+> ...
 * * * 
 
 #### 3. Auto run application after log-in.
