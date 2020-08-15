@@ -80,7 +80,8 @@ while True:
                     Fish.publish("Temp",temp)           #發布--Temp
                     Fish.subscribe("Temp")              #訂閱
                 except Exception as ex:
-                    print ('An Error occurred: %s'%ex)
+                    #print ('An Error occurred: %s'%ex)
+                    logging.info("An Error occurred: " + str(ex))
                     logwrite(str(ex))    #存檔例外原因
 
         elif(temp==0x33380000) or (temp==0x333a0000) or (temp==0x333c0000) or (temp==0x333e0000): #DHT22 applications
@@ -101,7 +102,8 @@ while True:
                     Office.publish("Temperature",temp)  #發布--Temperature
                     Office.subscribe("Temperature")     #訂閱
                 except Exception as ex:
-                    print ('An Error occurred: %s'%ex)
+                    #print ('An Error occurred: %s'%ex)
+                    logging.info("An Error occurred: " + str(ex))
                     logwrite(str(ex))    #存檔例外原因
 
             temp=rfdevice.rx_code&0x0000007f
@@ -116,7 +118,8 @@ while True:
                     Office.publish("Humidity",temp)     #發布--Humidity
                     Office.subscribe("Humidity")        #訂閱
                 except Exception as ex:
-                    print ('An Error occurred: %s'%ex)
+                    #print ('An Error occurred: %s'%ex)
+                    logging.info("An Error occurred: " + str(ex))
                     logwrite(str(ex))    #存檔例外原因
         
         elif(temp==0x33200000) or (temp==0x33220000) or (temp==0x33240000) or (temp==0x33280000): #ADC input applications
@@ -133,7 +136,8 @@ while True:
                     Fish.publish("abc",temp)            #發布--氬硝酸
                     Fish.subscribe("abc")               #訂閱
                 except Exception as ex:
-                    print ('An Error occurred: %s'%ex)
+                    #print ('An Error occurred: %s'%ex)
+                    logging.info("An Error occurred: " + str(ex))
                     logwrite(str(ex))    #存檔例外原因
 
             temp=rfdevice.rx_code&0x000000ff        #Arduino A7 input (got 8bit)
@@ -148,7 +152,8 @@ while True:
                     Fish.publish("bc",temp)             #發布--氨氮
                     Fish.subscribe("bc")                #訂閱
                 except Exception as ex:
-                    print ('An Error occurred: %s'%ex)
+                    #print ('An Error occurred: %s'%ex)
+                    logging.info("An Error occurred: " + str(ex))
                     logwrite(str(ex))    #存檔例外原因
         time_out=0
     else:
