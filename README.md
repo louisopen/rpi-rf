@@ -4,7 +4,7 @@
 #### 1. How to setting "don't entry screen saving mode" in Desktop ? 
 #### 因為Raspbian開機內定義有螢幕休眠, 所以我們需要rpi-rf_receive應用上取消休眠
 
-update/edit the /etc/lightdm/lightdm.conf 
+sudo nano /etc/lightdm/lightdm.conf 
 
 ...
 [SeatDefaults]
@@ -14,25 +14,27 @@ xserver-command=X -s 0 –dpms
 ...
 
 
-#### 2. How to create a command line mode to run rpi-rf_receive in the mode? 
-#### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receove, 這樣開機後可以直接準備就緒
+#### 2. How to create a command line mode to run rpi-rf_receive in the X-windows mode? 
+#### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receive (改用另一個)
 
-update/edit the /etc/xdg/lxsession/LXDE-pi/autostart 
+sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
 
 ...
-Exec = lxterminal -e /home/pi/autorun.sh
+#Exec = lxterminal -e /home/pi/autorun.sh                    
+Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
 ...
 
 
-#### 3. Auto run application at log-in.
-#### 用戶登入時才運行程序的設置
+#### 3. Auto run application after log-in.
+#### 用戶自動登入時才運行程序的設置
 
-pdate/edit the /home/pi/.config/autostart/autoboot.desktop 
+sudo nano /home/pi/.config/autostart/autoboot.desktop 
 
 [Desktop Entry]
 Type=Application
 Name=MyApplicationRun
-Exec = lxterminal -e /home/pi/autorun.sh                    #lxterminal run autorun.sh
+#Exec = lxterminal -e /home/pi/autorun.sh                    #運行掛機 applivcation close aftern run 5day 
+Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     #運行測試(Stay Bash)
 Icon=pictur.png
 ...
 or

@@ -2,4 +2,5 @@
 Type=Application
 Name=testboot
 NoDisplay=true
-Exec=/home/pi/autorun.sh
+#Exec = lxterminal -e /home/pi/autorun.sh                    #運行掛機 applivcation close aftern run 5day 
+Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     #運行測試(Stay Bash)
