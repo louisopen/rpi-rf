@@ -64,6 +64,7 @@ sudo python3 $jump_dir/rpi_rf/rpi-rf_receive    #本程序main python
 ##### 433MHz rf發送端已經定義的應用有DS18B02(temperature),DHT22(Temperature/Humidity),Arduino ADC
 
 ...
+...
         count+=1
         if count==30:
             count=0
