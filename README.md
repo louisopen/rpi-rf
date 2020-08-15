@@ -47,7 +47,7 @@ or
 
 #### 4. autorun.sh 
 #### 運行程序的內容
-...
+
 sudo python $jump_dir/status_spi.py &           #IP status display
 sudo python3 $jump_dir/rpi_rf/rpi-rf_receive    #本程序main python
 
