@@ -5,25 +5,24 @@
 #### 因為Raspbian開機內定義有螢幕休眠, 所以我們需要rpi-rf_receive應用上取消休眠
 
 sudo nano /etc/lightdm/lightdm.conf 
-
-...
+'
 [SeatDefaults]
 ...
 #xserver-command=X	#Change to as below
 xserver-command=X -s 0 –dpms
 ...
-
+'
 
 #### 2. How to create a command line mode to run rpi-rf_receive in the X-windows mode? 
 #### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receive (改用另一個)
 
 sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
-
+'
 ...
 #Exec = lxterminal -e /home/pi/autorun.sh                    
 Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
 ...
-
+'
 
 #### 3. Auto run application after log-in.
 #### 用戶自動登入時才運行程序的設置
