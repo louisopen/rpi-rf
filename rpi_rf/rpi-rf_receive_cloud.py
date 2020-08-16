@@ -10,15 +10,15 @@ import logging
 from rpi_rf import RFDevice
 from my_mqttClass import *      #Connect to your cloud if you have (second version)
 
+rfdevice = None
+
 pathname = os.path.join(os.getcwd(),'debug_rf.log') 
 def logwrite(data):
-    with open(pathname, 'a') as logstring:
+    logging.info(data)          #存檔前先display, base on the level
+    with open(pathname, 'w') as logstring:
         data = datetime.datetime.now().strftime('%Y%m%d-%H%M%S')+'===>'+data+'\n'
         #logstring.write(data.encode('utf-8'))
         logstring.write(data)
-
-
-rfdevice = None
 
 # pylint: disable=unused-argument
 def exithandler(signal, frame):
@@ -80,9 +80,7 @@ while True:
                     Fish.publish("Temp",temp)           #發布--Temp
                     Fish.subscribe("Temp")              #訂閱
                 except Exception as ex:
-                    #print ('An Error occurred: %s'%ex)
-                    logging.info("An Error occurred: " + str(ex))
-                    logwrite(str(ex))                   #存檔例外原因
+                    logwrite("An Error occurred: "+ str(ex))    #存檔例外原因
 
         elif(temp==0x33380000) or (temp==0x333a0000) or (temp==0x333c0000) or (temp==0x333e0000): #DHT22 applications
             if((rfdevice.rx_code&0x00010000) > 0):  #sign "-" for DHT22 temperature / Humidity
@@ -102,9 +100,7 @@ while True:
                     Office.publish("Temperature",temp)  #發布--Temperature
                     Office.subscribe("Temperature")     #訂閱
                 except Exception as ex:
-                    #print ('An Error occurred: %s'%ex)
-                    logging.info("An Error occurred: " + str(ex))
-                    logwrite(str(ex))                   #存檔例外原因
+                    logwrite("An Error occurred: "+ str(ex))    #存檔例外原因
 
             temp=rfdevice.rx_code&0x0000007f
             logging.info("Humidity is " + str(temp) + "%RH")
@@ -118,9 +114,7 @@ while True:
                     Office.publish("Humidity",temp)     #發布--Humidity
                     Office.subscribe("Humidity")        #訂閱
                 except Exception as ex:
-                    #print ('An Error occurred: %s'%ex)
-                    logging.info("An Error occurred: " + str(ex))
-                    logwrite(str(ex))                   #存檔例外原因
+                    logwrite("An Error occurred: "+ str(ex))    #存檔例外原因
         
         elif(temp==0x33200000) or (temp==0x33220000) or (temp==0x33240000) or (temp==0x33280000): #ADC input applications
             temp=(rfdevice.rx_code&0x0001ff00) >> 8 #Arduino A6 input (got 9bit)
@@ -136,9 +130,7 @@ while True:
                     Fish.publish("abc",temp)            #發布--氬硝酸
                     Fish.subscribe("abc")               #訂閱
                 except Exception as ex:
-                    #print ('An Error occurred: %s'%ex)
-                    logging.info("An Error occurred: " + str(ex))
-                    logwrite(str(ex))                   #存檔例外原因
+                    logwrite("An Error occurred: "+ str(ex))    #存檔例外原因
 
             temp=rfdevice.rx_code&0x000000ff        #Arduino A7 input (got 8bit)
             logging.info("A7 (8bit) is "+ str(temp))
@@ -152,15 +144,12 @@ while True:
                     Fish.publish("bc",temp)             #發布--氨氮
                     Fish.subscribe("bc")                #訂閱
                 except Exception as ex:
-                    #print ('An Error occurred: %s'%ex)
-                    logging.info("An Error occurred: " + str(ex))
-                    logwrite(str(ex))                   #存檔例外原因
+                    logwrite("An Error occurred: "+ str(ex))    #存檔例外原因
         time_out=0
     else:
         time_out+=1
         if time_out>60000:  #0.01x60x10min
             time_out=0
-            logging.info('Your time out(10 minutes)happen %s  %s'%(str(timestamp), str(rfdevice.rx_code_timestamp)))
             logwrite('Your time out(10 minutes)happen %s  %s'%(str(timestamp), str(rfdevice.rx_code_timestamp)))
     time.sleep(0.01)
 logwrite('You are break loop!')
