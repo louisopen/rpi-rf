@@ -11,7 +11,7 @@ sudo nano /etc/lightdm/lightdm.conf
 * xserver-command=X -s 0 –dpms
 * ...
 
-#### 2. How to create a command line mode to run rpi-rf_receive in the X-windows mode? 
+#### 2. How to auto create CMD line to run application rpi-rf_receive in the X-windows mode
 #### 視窗模式開機即開啟一個終端機模式, 並運行rpi-rf_receive (改用另一個)
 
 sudo nano /etc/xdg/lxsession/LXDE-pi/autostart 
@@ -20,8 +20,8 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 * Exec = lxterminal -e "bash -c /home/pi/autorun.sh;bash"     
 * ...
 
-#### 3. Auto run application after log-in.
-#### 用戶自動登入時才運行程序的設置
+#### 3. Auto run application after log-in termainal in the X-Windows mode.
+#### 視窗模式下自動開啟一個終端機模式(用戶登入或自動登入), 並運行應用程序
 
 sudo nano /home/pi/.config/autostart/autoboot.desktop 
 * ...
