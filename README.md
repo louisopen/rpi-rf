@@ -58,4 +58,4 @@ sudo python3 $jump_dir/rpi_rf/rpi-rf_receive    #本程序main python
 #### 5. Change receive code of the display on terminal dispaly.
 #### 做了一些應用上的改變,改變接收代碼及顯示
 ##### 433MHz rf發送端已經定義的應用有DS18B02(temperature),DHT22(Temperature/Humidity),Arduino ADC
-
+##### 2020-2023
